@@ -19,24 +19,9 @@ scaler    = joblib.load('model/scaler.pkl')
 encoder   = joblib.load('model/encoder.pkl')
 
 # =====================
-# Load Dataset
-# =====================
-print("Loading dataset...")
-df_data = pd.read_csv('pollution_2000_2023.csv', on_bad_lines='skip', low_memory=False)
-
-df_data['O3 1st Max Value'] = pd.to_numeric(df_data['O3 1st Max Value'], errors='coerce')
-df_data['CO 1st Max Value'] = pd.to_numeric(df_data['CO 1st Max Value'], errors='coerce')
-
-city_avg = df_data.groupby(['City', 'State']).agg({
-    'O3 Mean':  'max',
-    'CO Mean':  'max',
-    'SO2 Mean': 'max',
-    'NO2 Mean': 'max',
-    'O3 AQI':   'max',
-    'CO AQI':   'max',
-    'SO2 AQI':  'max',
-    'NO2 AQI':  'max'
-}).reset_index()
+# Load precomputed city averages
+print("Loading city data...")
+city_avg = pd.read_csv("city_avg.csv")
 
 # =====================
 # Fetch City Coordinates
