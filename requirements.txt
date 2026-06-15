@@ -1,0 +1,9 @@
+flask
+flask-cors
+scikit-learn==1.6.1
+joblib
+numpy
+pandas
+scipy
+requests
+kneed
